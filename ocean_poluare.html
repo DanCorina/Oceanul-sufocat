@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impactul Gunoaielor asupra Vieții Marine</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --red:#c0392b;--orange:#e67e22;--dark:#0a0a0f;
+  --text:#e8e0d8;--muted:#8a8078;--accent:#e74c3c;
+}
+
+body{
+  background:var(--dark);
+  font-family:'Source Sans 3',sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  height:100vh;
+  min-height:500px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#050810;
+}
+
+.hero-ocean{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,#050810 0%,#0a1520 40%,#102030 70%,#0d1a28 100%);
+}
+
+/* Murky water layers */
+.murky{
+  position:absolute;
+  width:100%;height:100%;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 40px,
+    rgba(80,40,10,0.04) 40px,
+    rgba(80,40,10,0.04) 41px
+  );
+}
+
+/* Floating trash SVG elements */
+.trash{
+  position:absolute;
+  opacity:0;
+  animation:sink linear infinite;
+}
+@keyframes sink{
+  0%{opacity:0;transform:translateY(-60px) rotate(0deg);}
+  5%{opacity:0.7;}
+  90%{opacity:0.4;}
+  100%{opacity:0;transform:translateY(110vh) rotate(360deg);}
+}
+
+.hero-content{
+  position:relative;z-index:10;
+  text-align:center;
+  padding:0 20px;
+  max-width:700px;
+}
+
+.tag{
+  display:inline-block;
+  background:rgba(192,57,43,0.2);
+  border:1px solid rgba(192,57,43,0.5);
+  color:#e74c3c;
+  font-size:11px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  padding:6px 16px;
+  border-radius:2px;
+  margin-bottom:24px;
+}
+
+h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,10vw,100px);
+  line-height:0.92;
+  letter-spacing:2px;
+  color:white;
+  margin-bottom:16px;
+}
+
+h1 span{color:#e74c3c;}
+
+.hero-sub{
+  font-size:clamp(14px,2vw,17px);
+  color:rgba(232,224,216,0.7);
+  font-weight:300;
+  line-height:1.6;
+  max-width:480px;
+  margin:0 auto 32px;
+}
+
+.scroll-hint{
+  font-size:11px;
+  letter-spacing:3px;
+  color:var(--muted);
+  text-transform:uppercase;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
+
+/* STATS BAR */
+.stats-bar{
+  background:#0f0f18;
+  border-top:1px solid rgba(231,76,60,0.2);
+  border-bottom:1px solid rgba(231,76,60,0.2);
+  padding:32px 20px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:0;
+}
+
+.stat-item{
+  text-align:center;
+  padding:16px 32px;
+  border-right:1px solid rgba(255,255,255,0.06);
+  flex:1;
+  min-width:140px;
+}
+.stat-item:last-child{border-right:none;}
+
+.stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(38px,6vw,64px);
+  line-height:1;
+  color:#e74c3c;
+  display:block;
+}
+
+.stat-unit{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:6px;
+  line-height:1.4;
+  font-weight:300;
+}
+
+/* SECTIONS */
+.section{
+  padding:72px 20px;
+  max-width:900px;
+  margin:0 auto;
+}
+
+.section-label{
+  font-size:10px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:#e74c3c;
+  margin-bottom:12px;
+  display:block;
+}
+
+.section h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(32px,5vw,54px);
+  line-height:1;
+  margin-bottom:24px;
+  color:white;
+}
+
+/* IMPACT LIST */
+.impact-list{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.impact-item{
+  display:grid;
+  grid-template-columns:4px 1fr;
+  gap:20px;
+  padding:20px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  align-items:start;
+}
+
+.impact-bar{
+  width:4px;
+  height:100%;
+  min-height:60px;
+  border-radius:2px;
+  margin-top:4px;
+}
+
+.impact-content h3{
+  font-size:clamp(16px,2.5vw,20px);
+  font-weight:600;
+  color:white;
+  margin-bottom:8px;
+}
+
+.impact-content p{
+  font-size:clamp(13px,1.8vw,15px);
+  color:rgba(232,224,216,0.65);
+  line-height:1.7;
+  font-weight:300;
+}
+
+.impact-content .badge{
+  display:inline-block;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding:3px 10px;
+  border-radius:2px;
+  margin-bottom:8px;
+  font-weight:600;
+}
+
+/* VISUAL: Plastic breakdown timeline */
+.timeline{
+  margin-top:48px;
+  position:relative;
+}
+
+.tl-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(24px,4vw,38px);
+  color:white;
+  margin-bottom:32px;
+}
+
+.tl-track{
+  position:relative;
+  padding-left:32px;
+}
+
+.tl-track::before{
+  content:'';
+  position:absolute;
+  left:8px;top:0;bottom:0;
+  width:2px;
+  background:linear-gradient(180deg,#e74c3c,#e67e22,#f39c12,rgba(255,255,255,0.1));
+}
+
+.tl-item{
+  position:relative;
+  margin-bottom:24px;
+  padding:16px 20px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  border-left:3px solid;
+}
+
+.tl-item::before{
+  content:'';
+  position:absolute;
+  left:-28px;top:20px;
+  width:12px;height:12px;
+  border-radius:50%;
+  background:var(--dot-color,#e74c3c);
+  box-shadow:0 0 8px var(--dot-color,#e74c3c);
+}
+
+.tl-years{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(18px,3vw,26px);
+  margin-bottom:4px;
+}
+
+.tl-desc{
+  font-size:13px;
+  color:rgba(232,224,216,0.6);
+  font-weight:300;
+}
+
+/* SPECIES IMPACT GRID */
+.species-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
+  margin-top:32px;
+}
+
+.species-card{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+}
+
+.species-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+}
+
+.species-icon{
+  font-size:32px;
+  margin-bottom:12px;
+  display:block;
+  filter:grayscale(30%);
+}
+
+.species-card h4{
+  font-size:15px;
+  font-weight:600;
+  color:white;
+  margin-bottom:8px;
+}
+
+.species-card p{
+  font-size:12px;
+  color:rgba(232,224,216,0.55);
+  line-height:1.6;
+  font-weight:300;
+}
+
+.species-pct{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;
+  margin-top:10px;
+  display:block;
+}
+
+/* CALL TO ACTION */
+.cta{
+  background:rgba(192,57,43,0.08);
+  border:1px solid rgba(192,57,43,0.2);
+  border-top:3px solid #e74c3c;
+  padding:48px 32px;
+  text-align:center;
+  max-width:900px;
+  margin:0 auto 64px;
+}
+
+.cta h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(28px,5vw,48px);
+  color:white;
+  margin-bottom:16px;
+}
+
+.cta p{
+  font-size:15px;
+  color:rgba(232,224,216,0.7);
+  max-width:500px;
+  margin:0 auto;
+  font-weight:300;
+  line-height:1.7;
+}
+
+.footer-tag{
+  text-align:center;
+  padding:32px 20px;
+  font-size:11px;
+  letter-spacing:3px;
+  color:var(--muted);
+  text-transform:uppercase;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-ocean"></div>
+  <div class="murky"></div>
+
+  <!-- Floating trash elements (SVG inline) -->
+  <svg class="trash" style="left:8%;width:40px;animation-duration:12s;animation-delay:0s;" viewBox="0 0 40 20">
+    <rect x="5" y="5" width="30" height="10" rx="5" fill="#e74c3c" opacity="0.6"/>
+    <text x="20" y="14" text-anchor="middle" font-size="7" fill="white">PET</text>
+  </svg>
+  <svg class="trash" style="left:20%;width:55px;animation-duration:18s;animation-delay:3s;" viewBox="0 0 55 30">
+    <polygon points="5,25 15,5 25,25" fill="#e67e22" opacity="0.5"/>
+    <polygon points="30,25 40,8 50,25" fill="#e67e22" opacity="0.4"/>
+  </svg>
+  <svg class="trash" style="left:40%;width:35px;animation-duration:14s;animation-delay:6s;" viewBox="0 0 35 35">
+    <circle cx="17" cy="17" r="14" fill="none" stroke="#c0392b" stroke-width="2" opacity="0.5"/>
+    <line x1="5" y1="5" x2="30" y2="30" stroke="#c0392b" stroke-width="2" opacity="0.5"/>
+  </svg>
+  <svg class="trash" style="left:60%;width:60px;animation-duration:20s;animation-delay:1s;" viewBox="0 0 60 20">
+    <rect x="2" y="5" width="56" height="10" rx="2" fill="#8e44ad" opacity="0.4"/>
+  </svg>
+  <svg class="trash" style="left:75%;width:30px;animation-duration:10s;animation-delay:8s;" viewBox="0 0 30 40">
+    <path d="M5,5 Q15,0 25,5 Q30,20 25,35 Q15,40 5,35 Q0,20 5,5Z" fill="#27ae60" opacity="0.4"/>
+  </svg>
+  <svg class="trash" style="left:88%;width:45px;animation-duration:16s;animation-delay:4s;" viewBox="0 0 45 25">
+    <rect x="2" y="2" width="41" height="21" rx="3" fill="#2980b9" opacity="0.45"/>
+    <text x="22" y="16" text-anchor="middle" font-size="8" fill="white" opacity="0.8">CAN</text>
+  </svg>
+  <svg class="trash" style="left:33%;width:28px;animation-duration:22s;animation-delay:11s;" viewBox="0 0 28 28">
+    <rect x="2" y="2" width="24" height="24" fill="none" stroke="#e67e22" stroke-width="2" opacity="0.5"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="tag">SOMEK · Proiect eTwinning</div>
+    <h1>Oceanul<br><span>Sufocat</span></h1>
+    <p class="hero-sub">Gunoaiele marine ucid peste 1 milion de animale în fiecare an. Află cum deșeurile noastre distrug cel mai mare ecosistem de pe Pământ.</p>
+    <div class="scroll-hint">&#x2193; &nbsp; derulează pentru a descoperi</div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-num">8M</span>
+    <div class="stat-unit">tone de plastic ajung<br>în ocean în fiecare an</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">1M+</span>
+    <div class="stat-unit">animale marine mor<br>anual din cauza plasticului</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">500</span>
+    <div class="stat-unit">zone moarte identificate<br>în oceanele lumii</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">700</span>
+    <div class="stat-unit">specii marine afectate<br>direct de deșeuri</div>
+  </div>
+</div>
+
+<!-- IMPACT SECTION -->
+<div class="section">
+  <span class="section-label">Impactul Direct</span>
+  <h2>Cum ucide<br>plasticul oceanul</h2>
+
+  <div class="impact-list">
+    <div class="impact-item">
+      <div class="impact-bar" style="background:#e74c3c;"></div>
+      <div class="impact-content">
+        <span class="badge" style="background:rgba(231,76,60,0.15);color:#e74c3c;">Pericol critic</span>
+        <h3>Microplasticele invizibile</h3>
+        <p>Plasticul se fragmentează în particule sub 5mm — microplastice — care sunt ingerate de fitoplancton, pești și mamifere marine. Ajung în lanțul trofic și, în final, pe farfuria noastră. Peste 90% din păsările marine au plastic în stomac.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-bar" style="background:#e67e22;"></div>
+      <div class="impact-content">
+        <span class="badge" style="background:rgba(230,126,34,0.15);color:#e67e22;">Sufocare</span>
+        <h3>Capcane de plastic: plase, pungi, inele</h3>
+        <p>Delfinii, broaștele țestoase, focile și păsările marine se încurcă în plase abandonate sau înghit pungi de plastic confundate cu meduze. Peste 300.000 de cetacee mor anual prin încurcare.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-bar" style="background:#f39c12;"></div>
+      <div class="impact-content">
+        <span class="badge" style="background:rgba(243,156,18,0.15);color:#f39c12;">Distrugere habitat</span>
+        <h3>Recifele de coral sufocate</h3>
+        <p>Plasticul depus pe recife blochează lumina solară și creează medii propice bacteriilor patogene. Studiile arată că probabilitatea de boală pentru coralii care intră în contact cu plastic crește cu 89%.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-bar" style="background:#8e44ad;"></div>
+      <div class="impact-content">
+        <span class="badge" style="background:rgba(142,68,173,0.15);color:#b39ddb;">Toxicitate chimică</span>
+        <h3>Substanțe toxice absorbite</h3>
+        <p>Plasticul atrage și concentrează poluanți chimici (PCB, DDT) de până la 1 milion de ori față de apa din jur. Animalele marine care îl ingerează suferă tulburări hormonale, infertilitate și cancer.</p>
+      </div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-bar" style="background:#16a085;"></div>
+      <div class="impact-content">
+        <span class="badge" style="background:rgba(22,160,133,0.15);color:#1abc9c;">Efect de cascadă</span>
+        <h3>Colapsul lanțului trofic</h3>
+        <p>Moartea fitoplanctonului și zooplanctonului — baza lanțului alimentar marin — afectează toate speciile de deasupra. Fără plancton sănătos, populațiile de pești, balene și rechini se prăbușesc.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="section" style="padding-top:0;">
+  <div class="timeline">
+    <div class="tl-title">Cât durează să se descompună?</div>
+    <div class="tl-track">
+      <div class="tl-item" style="border-left-color:#e74c3c;--dot-color:#e74c3c;">
+        <div class="tl-years" style="color:#e74c3c;">2 – 6 ani</div>
+        <div class="tl-desc">Mucuri de țigară, gumă de mestecat, cutii de carton</div>
+      </div>
+      <div class="tl-item" style="border-left-color:#e67e22;--dot-color:#e67e22;">
+        <div class="tl-years" style="color:#e67e22;">10 – 20 ani</div>
+        <div class="tl-desc">Pungi de plastic, pahare de polistiren, ambalaje alimentare</div>
+      </div>
+      <div class="tl-item" style="border-left-color:#f39c12;--dot-color:#f39c12;">
+        <div class="tl-years" style="color:#f39c12;">50 ani</div>
+        <div class="tl-desc">Scutece, dopuri, sticle de plastic</div>
+      </div>
+      <div class="tl-item" style="border-left-color:#e74c3c;--dot-color:#c0392b;">
+        <div class="tl-years" style="color:#c0392b;">400 – 500 ani</div>
+        <div class="tl-desc">Sticle PET, plase de pescuit, recipient din plastic dur</div>
+      </div>
+      <div class="tl-item" style="border-left-color:#7f8c8d;--dot-color:#7f8c8d;">
+        <div class="tl-years" style="color:#bdc3c7;">Nedeterminat</div>
+        <div class="tl-desc">Sticla și unele tipuri de plastic sintetic nu se descompun — rămân ca microparticule pentru totdeauna</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SPECIES -->
+<div class="section" style="padding-top:0;">
+  <span class="section-label">Specii amenințate</span>
+  <h2>Victimele tăcute</h2>
+  <div class="species-grid">
+    <div class="species-card" style="border-top-color:#3498db;">
+      <span class="species-icon">🐢</span>
+      <h4>Broaștele țestoase</h4>
+      <p>Confundă pungile de plastic cu meduze. Ingestia blochează sistemul digestiv. 52% dintre țestoasele marine au ingerat plastic.</p>
+      <span class="species-pct" style="color:#3498db;">52%</span>
+    </div>
+    <div class="species-card" style="border-top-color:#e74c3c;">
+      <span class="species-icon">🦅</span>
+      <h4>Păsări marine</h4>
+      <p>90% din păsările marine au plastic în stomac. Hrănesc involuntar puii cu deșeuri, cauzând moartea prin înfometare sau intoxicare.</p>
+      <span class="species-pct" style="color:#e74c3c;">90%</span>
+    </div>
+    <div class="species-card" style="border-top-color:#1abc9c;">
+      <span class="species-icon">🐬</span>
+      <h4>Delfini & balene</h4>
+      <p>Balenele esuate pe plaje sunt găsite cu zeci de kg de plastic în stomac. Perturbatoarele hormonale afectează reproducerea.</p>
+      <span class="species-pct" style="color:#1abc9c;">300K/an</span>
+    </div>
+    <div class="species-card" style="border-top-color:#f39c12;">
+      <span class="species-icon">🐠</span>
+      <h4>Pești de recif</h4>
+      <p>Trăiesc printre deșeuri acumulate pe fundul mării. Microplasticele perturbă comportamentul de hrănire și navigare.</p>
+      <span class="species-pct" style="color:#f39c12;">Critic</span>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Fiecare piesă de plastic<br>contează</h2>
+  <p>Un singur pahar de plastic aruncat pe stradă poate ajunge în ocean în câteva zile prin sistemul de canalizare. Alegerile noastre zilnice au impact direct asupra vieții marine.</p>
+</div>
+
+<div class="footer-tag">SOMEK · Student-led Oceanic Movement for Eco-friendly Knowledge · eTwinning 2025</div>
+
+</body>
+</html>
